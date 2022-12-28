@@ -22,4 +22,17 @@ class catalogs extends Model
     public function manufacturers(){
         return $this->belongsTo("App\Models\manufacturers",'mid', 'id');
     }
+    public function scopeAllType($query)
+    {
+        $query->select('game_type')->groupBy('game_type');
+    }
+    public function scopetype($query, $pos)
+    {
+        $query->where('game_type', '=', $pos)->orderBy('game_type');
+    }
+    public function scopeSenior($query)
+    {
+        $query->where('evaluaation', '>', 95)
+            ->orderBy('evaluaation');
+    }
 }

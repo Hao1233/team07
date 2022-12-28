@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Validator;
 
 class CatalogsRequest extends FormRequest
 {
@@ -28,7 +29,7 @@ class CatalogsRequest extends FormRequest
             'mid' => 'required',
             'price' => 'required|numeric|min:100|max:999',
             'evaluaation' => 'required|numeric|min:10|max:100',
-            'issue_date' => 'nullable|dateearlier:onboarddate',
+            'issue_date' => 'required|string|max:191|min:1',
             'revenue' => 'required|numeric|min:100|max:599',
             'game_type' => 'required|string|min:2|max:191'
         ];

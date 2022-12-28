@@ -6,6 +6,15 @@
 
 @section('game_contents')
 <a class="btn btn-sm btn-success" href=" {{ url('catalogs/create/') }} ">新增游戲</a>
+<div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l">
+        <a href="{{ url('catalogs/senior') }}">資深遊戲</a>
+        <form action="{{ url('catalogs/position') }}" method='POST'>
+            {!! Form::label('pos', '選取位置：') !!}
+            {!! Form::select('pos', $type, ['class' => 'form-control']) !!}
+            <input class="btn btn-default" type="submit" value="查詢" />
+            @csrf
+        </form>
+</div>
 <style>
     .panel{
     font-family: 'Raleway', sans-serif;
@@ -154,8 +163,9 @@
                         @endforeach
                         </tbody>
                     </table>
-                </div>
-</div>
+                    {{ $catalogs->links() }}
+               </div>
+            </div>
         </div>
     </div>
 </div>

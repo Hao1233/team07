@@ -26,7 +26,7 @@ class ManufacturersRequest extends FormRequest
         return [
             'name' => 'required|string|min:2|max:191',
             'capital' => 'required|numeric|min:1000|max:9999',
-            'found_at' => 'nullable|dateearlier:onboarddate',
+            'found_at' => 'required|string|max:191|min:1',
             'national' => 'required|string|min:2|max:191'
         ];
     }
@@ -37,7 +37,7 @@ class ManufacturersRequest extends FormRequest
             "name.min" => "公司名稱 至少需2個字元",
             "name.max" => "公司名稱 最多需191個字元",
             "capital.required" => "公司資本額 為必填",
-            "capital.min" => "公司資本額 範圍必須介於100~999之間",
+            "capital.min" => "公司資本額 範圍必須介於1000~9999之間",
             "capital.max" => "公司資本額  範圍必須介於100~999之間",
             "found_at.dateearlier" => "公司成立日期 為必填",
             "national.required" => "国家 為必填",

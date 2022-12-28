@@ -3,8 +3,18 @@
 @section('title', 'manufacturers')
 
 @section('game_theme')
+
 @section('game_contents')
-<a class="btn btn-sm btn-success" href="{{url('manufacturers/create')}}">新增游戲公司</a><br>
+<a class="btn btn-sm btn-success" href="{{url('manufacturers/create')}}">新增游戲公司</a>
+<div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l">
+        <a href="{{ url('manufacturers/senior') }}">資深公司</a>
+        <form action="{{ url('manufacturers/position') }}" method='POST'>
+            {!! Form::label('pos', '選取位置：') !!}
+            {!! Form::select('pos', $national, ['class' => 'form-control']) !!}
+            <input class="btn btn-default" type="submit" value="查詢" />
+            @csrf
+        </form>
+</div>
 <style>
     .panel{
     font-family: 'Raleway', sans-serif;
@@ -111,6 +121,7 @@
     box-shadow: 0 0 5px rgba(0,0,0,0.4);
 }
 </style>
+
 <div class="panel">
                 <div class="panel-body table-responsive">
                     <table class="table">
@@ -127,27 +138,28 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($manufacturers as $manufacturers)
+                        @foreach($manufacturers as $manufacturer)
                             <tr>
-                                <td>{{$manufacturers->id }}</td>
-                                <td>{{$manufacturers->name }}</td>
-                                <td>{{$manufacturers->capital }}</td>
-                                <td>{{$manufacturers->found_at }}</td>
-                                <td>{{$manufacturers->national }}</td>  
-                                <td><a  href="{{ url('manufacturers/show', ['id'=>$manufacturers->id]) }}" class="btn btn-sm btn-success"><i class="fa fa-search">view</i></a></td>
+                                <td>{{$manufacturer->id }}</td>
+                                <td>{{$manufacturer->name }}</td>
+                                <td>{{$manufacturer->capital }}</td>
+                                <td>{{$manufacturer->found_at }}</td>
+                                <td>{{$manufacturer->national }}</td>  
+                                <td><a  href="{{ url('manufacturers/show', ['id'=>$manufacturer->id]) }}" class="btn btn-sm btn-success"><i class="fa fa-search">view</i></a></td>
                                 <td>
                                             <i class="fa fa-pencil-alt"></i>
-                                                <form action="{{ url('manufacturers/delete', ['id' => $manufacturers->id]) }}" method="post">
+                                                <form action="{{ url('manufacturers/delete', ['id' => $manufacturer->id]) }}" method="post">
                                                     <input  class="btn btn-danger" type="submit" value="delete" />
                                                     @method('delete')
                                                     @csrf
                                                 </form>
                                 </td>
-                                <td><a href="{{url('manufacturers/edit', ['id' => $manufacturers->id])}}" class="btn btn-primary"><i class="fa fa-pencil-alt">edit</i></a></td>
+                                <td><a href="{{url('manufacturers/edit', ['id' => $manufacturer->id])}}" class="btn btn-primary"><i class="fa fa-pencil-alt">edit</i></a></td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
+                    {{ $manufacturers->links() }}
                 </div>
             </div>
         </div>

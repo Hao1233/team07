@@ -8,7 +8,7 @@
     {!! Form::text('name', null, ['class' => 'form-control']) !!}
 </div>
 <div class="form-group">
-    {!! Form::label('mid', '所有廠商公司') !!}
+    {!! Form::label('mid', '遊戲廠商公司') !!}
     {!! Form::select('mid', $manufacturers, ['class' => 'form-control']) !!}
 </div>
 <div class="form-group">

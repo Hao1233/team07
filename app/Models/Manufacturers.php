@@ -24,4 +24,17 @@ class manufacturers extends Model
         $this->catalogs()->delete();
         return parent::delete();
     }
+    public function scopeAllnational($query)
+    {
+        $query->select('national')->groupBy('national');
+    }
+    public function scopenational($query, $pos)
+    {
+        $query->where('national', '=', $pos)->orderBy('national');
+    }
+    public function scopeSenior($query)
+    {
+        $query->where('capital', '>', 90)
+            ->orderBy('capital');
+    }
 }

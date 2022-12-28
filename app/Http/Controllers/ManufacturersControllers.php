@@ -3,7 +3,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ManufacturersRequest;
 use App\Models\manufacturers;
-
 use App\Models\catalogs;
 use Database\Factories\ManufacturersFactory;
 use Illuminate\Http\Request;
@@ -13,9 +12,39 @@ class ManufacturersControllers extends Controller
 {
     public function index()
     {
-        $manufacturers = manufacturers::all();
-        return view('manufacturers.index', ['manufacturers'=>$manufacturers]);
+        $manufacturers = manufacturers::paginate(20);
+        $nationals = manufacturers::Allnational()->get();
+        $data = [];
+        foreach ($nationals as $national)
+        {
+            $data["$national->national"] = $national->national;
+        }
+        return view('manufacturers.index', ['manufacturers'=>$manufacturers,'national'=>$data]);
     }
+    public function position(Request $request)
+    {
+        $manufacturers = manufacturers::national($request->input('pos'))->paginate(5);
+        $nationals = manufacturers::Allnational()->get();
+        $data = [];
+        foreach ($nationals as $national)
+        {
+            $data["$national->national"] = $national->national;
+        }
+        return view('manufacturers.index', ['manufacturers'=>$manufacturers,'national'=>$data]);
+    }
+    public function senior()
+    {
+        $manufacturers = manufacturers::Senior()->paginate(10);
+        $nationals = manufacturers::Allnational()->get();
+        $data = [];
+        foreach ($nationals as $national)
+        {
+            $data["$national->national"] = $national->national;
+        }
+        return view('manufacturers.index', ['manufacturers'=>$manufacturers,'national'=>$data]);
+    }
+
+
     public function delete($id)
     {
         $team = manufacturers::findOrFail($id);
@@ -54,7 +83,7 @@ class ManufacturersControllers extends Controller
         $national= $request->input('national');
 
 
-        $catalogs = manufacturers::create([
+        $manufacturers = manufacturers::create([
             'name'=>$name,
             'capital'=>$capital,
             'found_at'=>$found_at, 

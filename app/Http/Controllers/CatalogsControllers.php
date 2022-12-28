@@ -8,14 +8,46 @@ use App\Models\catalogs;
 use App\Models\manufacturers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Validator;
 
 class CatalogsControllers extends Controller
 {
     public function index()
     {
-        $catalogs = catalogs::all();
-        return view('catalogs.index', ['catalogs'=>$catalogs]);
+        $catalogs = catalogs::paginate(20);
+        $types = catalogs::AllType()->get();
+        $data = [];
+        foreach ($types as $type)
+        {
+            $data["$type->game_type"] = $type->game_type;
+        }
+        return view('catalogs.index', ['catalogs'=>$catalogs,  'type'=>$data]);
     }
+    public function position(Request $request)
+    {
+        $catalogs = catalogs::type($request->input('pos'))->paginate(20);
+        $types = catalogs::AllType()->get();
+        $data = [];
+        foreach ($types as $type)
+        {
+            $data["$type->game_type"] = $type->game_type;
+        }
+        return view('catalogs.index', ['catalogs'=>$catalogs,  'type'=>$data]);
+    }
+    public function senior()
+    {
+        $catalogs = catalogs::Senior()->paginate(20);
+        $types = catalogs::AllType()->get();
+        $data = [];
+        foreach ($types as $type)
+        {
+            $data["$type->game_type"] = $type->game_type;
+        }
+        return view('catalogs.index', ['catalogs'=>$catalogs,  'type'=>$data]);
+    }
+
+
+
     public function delete($id)
     {
         $team = catalogs::findOrFail($id);
