@@ -13,7 +13,7 @@
 </div>
 <div class="form-group">
     {!! Form::label('found_at', '成立日期') !!}
-    {!! Form::text('found_at', null, ['class' => 'form-control']) !!}
+    {!! Form::date('found_at', null, ['class' => 'form-control']) !!}
 </div>
 <div class="form-group">
     {!! Form::label('national', '國家') !!}

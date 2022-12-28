@@ -1,7 +1,5 @@
 @if ($errors->any())
-    <ul>
         @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
+            *{{ $error }} <br>
         @endforeach
-    </ul>
 @endif

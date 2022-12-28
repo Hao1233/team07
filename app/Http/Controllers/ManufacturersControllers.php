@@ -1,8 +1,11 @@
 <?php
 namespace App\Http\Controllers;
+
+use App\Http\Requests\ManufacturersRequest;
 use App\Models\manufacturers;
 
 use App\Models\catalogs;
+use Database\Factories\ManufacturersFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -43,13 +46,19 @@ class ManufacturersControllers extends Controller
     public function create(){
         return view('manufacturers.create');
     }
-    public function store()
+    public function store(ManufacturersRequest $request)
     {
+        $name = $request->input('name');
+        $capital = $request->input('capital');
+        $found_at = $request->input('found_at');
+        $national= $request->input('national');
+
+
         $catalogs = manufacturers::create([
-            'name'=>request('name'),
-            'capital'=>request('capital'),
-            'found_at'=>request('found_at'), 
-            'national'=>request('national'), 
+            'name'=>$name,
+            'capital'=>$capital,
+            'found_at'=>$found_at, 
+            'national'=>$national, 
         ]);
         return redirect('/manufacturers');
     }

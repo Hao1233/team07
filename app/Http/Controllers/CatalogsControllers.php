@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\CatalogsRequest;
 use App\Models\CreateCatalogModel;
 use App\Models\catalogs;
 use App\Models\manufacturers;
@@ -56,28 +58,28 @@ class CatalogsControllers extends Controller
         return view('catalogs.show', ['catalogs' => $catalogs, 'manufacturers_name' => $manufacturers->name]);
     }
     public function create(){
-        $catalogs = DB::table('manufacturers')
-        ->select('manufacturers.id', 'manufacturers.name')
-        ->orderBy('manufacturers.id', 'asc')
-        ->get();
-
-        $data = [];
-        foreach ($catalogs as $catalog)
-        {
-            $data[$catalog->id] = $catalog->name;
-        }
-        return view('catalogs.create',['manufacturers'=>$data]);
+        $tags = manufacturers::orderBy('manufacturers.id', 'asc')->pluck('manufacturers.name', 'manufacturers.id');
+        return view('catalogs.create',['manufacturers'=>$tags]);
     }
-    public function store()
+    public function store(CatalogsRequest $request)
     {
+        $name = $request->input('name');
+        $mid = $request->input('mid');
+        $price = $request->input('price');
+        $evaluaation= $request->input('evaluaation');
+        $issue_date = $request->input('issue_date');
+        $revenue = $request->input('revenue');
+        $game_type = $request->input('game_type');
+
+
         $catalogs = catalogs::create([
-            'name'=>request('name'),
-            'mid'=>request('mid'),
-            'price'=>request('price'), 
-            'evaluaation'=>request('evaluaation'), 
-            'issue_date'=>request('issue_date'), 
-            'revenue'=> request('revenue'), 
-            'game_type'=>request('game_type'),
+            'name'=>$name,
+            'mid'=>$mid,
+            'price'=>$price, 
+            'evaluaation'=>$evaluaation, 
+            'issue_date'=>$issue_date, 
+            'revenue'=>$revenue, 
+            'game_type'=>$game_type,
         ]);
         
         return redirect('/');

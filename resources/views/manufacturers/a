@@ -1,11 +1,3 @@
-@extends('app')
-
-@section('title', 'game')
-
-@section('game_theme')
-
-@section('game_contents')
-<a class="btn btn-sm btn-success" href=" {{ url('catalogs/create/') }} ">新增游戲</a>
 <style>
     .panel{
     font-family: 'Raleway', sans-serif;
@@ -141,22 +133,21 @@
                                 <td>{{$catalog->issue_date }}</td>
                                 <td>{{$catalog->revenue }}</td>
                                 <td>{{$catalog->game_type }}</td>
-                                <td ><a id="btn0" href="{{ url('catalogs/show', ['id'=>$catalog->id]) }}"class="btn btn-sm btn-success"><i class="fa fa-search">view</i></a></td>
+                                <td ><a id="btn0" href="{{ url('catalogs/show', ['id'=>$catalog->id]) }}">顯示</a></td>
                                 <td >
                                     <form id="btn1" action="{{ url('catalogs/delete', ['id' => $catalog->id]) }}" method="post">
-                                        <input id="btn1"  class="btn btn-danger"  type="submit" value="delete" />
+                                        <input id="btn1"  class="btn btn-default" type="submit" value="刪除" />
                                         @method('delete')
                                         @csrf
                                     </form> 
                                 </td>  
-                                <td><a id="btn3" href="{{url('catalogs/edit', ['id' => $catalog->id])}}"class="btn btn-primary"><i class="fa fa-pencil-alt">edit</i></a></td>
+                                <td><a id="btn3" href="{{url('catalogs/edit', ['id' => $catalog->id])}}">edit</a></td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
                 </div>
-</div>
+            </div>
         </div>
     </div>
 </div>
-@endsection
