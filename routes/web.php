@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\CatalogsControllers;
 use App\Http\Controllers\ManufacturersControllers;
+use App\Http\Controllers\AutoControllers;
+use App\Http\Controllers\UserControllers;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +18,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+Route::get('loginView/', [UserControllers::class, 'loginView']);
+Route::post('login/', [UserControllers::class, 'login']);
+Route::get('logout/', [UserControllers::class, 'logout']);
+Route::get('registration/', [UserControllers::class, 'registration']);
+Route::post('cfregistration/', [UserControllers::class, 'cfregistration']);
 
 
 
@@ -42,3 +49,5 @@ Route::get('manufacturers/show/{id}', [ManufacturersControllers::class, 'show'])
 Route::delete('manufacturers/delete/{id}/', [ManufacturersControllers::class, 'delete'])->where('id', '[0-9]+');
 Route::get('manufacturers/edit/{id}/', [ManufacturersControllers::class, 'edit'])->where('id', '[0-9]+');
 Route::patch('manufacturers/update/{id}', [ManufacturersControllers::class, 'update'])->where('id', '[0-9]+');
+
+Route::get('registration/', [AutoControllers::class, 'registration']);

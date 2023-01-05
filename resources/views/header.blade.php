@@ -11,7 +11,7 @@
 
 
 <div>
-  Select
+  OPTION
   <ul>
     <li><a class="btn btn-primary" href="{{ url('/') }} " class="ml-1 underline">
         所有游戲

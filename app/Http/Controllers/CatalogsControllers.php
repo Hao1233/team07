@@ -50,8 +50,8 @@ class CatalogsControllers extends Controller
 
     public function delete($id)
     {
-        $team = catalogs::findOrFail($id);
-        $team->delete();
+        $catalogs = catalogs::findOrFail($id);
+        $catalogs->delete();
         return redirect('/');
     }
     public function edit($id)
@@ -116,4 +116,61 @@ class CatalogsControllers extends Controller
         
         return redirect('/');
     }
+
+
+////////////////API
+    public function api_catalogs()
+    {
+        return catalogs::all();
+    }
+
+    public function api_update(Request $request)
+    {
+        $catalogs = catalogs::find($request->input('id'));
+        if ($catalogs == null)
+        {
+            return response()->json([
+                'status' => 0,
+            ]);
+        }
+
+        $catalogs->name = request('name'); 
+        $catalogs->mid = request('mid'); 
+        $catalogs->price = request('price'); 
+        $catalogs->evaluaation = request('evaluaation'); 
+        $catalogs->issue_date = request('issue_date'); 
+        $catalogs->revenue = request('revenue'); 
+        $catalogs->game_type = request('game_type');
+        if ($catalogs->save())
+        {
+            return response()->json([
+                'status' => 1,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 0,
+            ]);
+        }
+    }
+
+    public function api_delete(Request $request)
+    {
+        $catalogs = catalogs::find($request->input('id'));
+
+        if ($catalogs == null)
+        {
+            return response()->json([
+                'status' => 0,
+            ]);
+        }
+
+        if ($catalogs->delete())
+        {
+            return response()->json([
+                'status' => 1,
+            ]);
+        }
+
+    }
+
 }

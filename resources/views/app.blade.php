@@ -37,6 +37,13 @@
         .w-8 {
             width: 2rem
         }
+        .username{
+            color: red;
+            background-color:#4a5568;
+            margin-left: 1000px;
+            border: solid 1px;
+            border-radius: 20%;
+        }
         @media (min-width: 640px) {
             .sm\:rounded-lg {
                 border-radius: .5rem
@@ -137,7 +144,13 @@
             }
         }
     </style>
+    @if(Auth::user())
     <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+        <div class="username">
+            <div> wellcome {{ Auth::user()->name }}<a href="{{url('logout/')}}">/logout</a></div>
+        </div>
+            
+        
         <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
             <a href="{{url('/')}}"><img src={{ URL::asset('images/2.png') }} width="100%" height="100%"/></a>
         </div>
@@ -156,5 +169,13 @@
         </div>
         @include('footer')
     </div>
+    @else
+    <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+        <strong>you must be login or register</strong>
+        <div class="username">
+            <a href="{{url('loginView/')}}">login</a>/<a href="{{ url('registration/')}}">register</a>
+        </div>
+    </div>
+    @endif
 </body>
 </html>

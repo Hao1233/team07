@@ -91,4 +91,56 @@ class ManufacturersControllers extends Controller
         ]);
         return redirect('/manufacturers');
     }
+    ////////api
+    public function api_manufacturers()
+    {
+        return manufacturers::all();
+    }
+
+    public function api_update(Request $request)
+    {
+        $manufacturers = manufacturers::find($request->input('id'));
+        if ($manufacturers == null)
+        {
+            return response()->json([
+                'status' => 0,
+            ]);
+        }
+
+        $manufacturers->name = request('name');  
+        $manufacturers->capital = request('capital'); 
+        $manufacturers->found_at = request('found_at'); 
+        $manufacturers->national = request('national');  
+        if ($manufacturers->save())
+        {
+            return response()->json([
+                'status' => 1,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 0,
+            ]);
+        }
+    }
+
+    public function api_delete(Request $request)
+    {
+        $manufacturers = manufacturers::find($request->input('id'));
+
+        if ($manufacturers == null)
+        {
+            return response()->json([
+                'status' => 0,
+            ]);
+        }
+
+        if ($manufacturers->delete())
+        {
+            return response()->json([
+                'status' => 1,
+            ]);
+        }
+
+    }
+
 }

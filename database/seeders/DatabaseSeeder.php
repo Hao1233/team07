@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-
+use Illuminate\Database\Eloquent;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        
         $this->call(CatalogsTableSeeder::class);
         $this->call(ManufacturersTableSeeder::class);
     }
